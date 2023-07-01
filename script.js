@@ -31,10 +31,10 @@ function generatePassword() {
   var confirmationMessageToUser = ""
   // sets length
   var passwordLength = prompt("how many characters in your password? (8-128)") 
- 
+ //this resets due to invalid input
   if (passwordLength <8 || passwordLength> 128){
     return "password length of " + passwordLength + " is invalid, please try again"
-  } else { confirmationMessageToUser += "," + passwordLength + " characters" ;
+  } else { confirmationMessageToUser += ", " + passwordLength + " characters" ;
 }
 
   var confirmUppercase = confirm("do you want uppercase letters");
@@ -62,8 +62,8 @@ function generatePassword() {
       confirmationMessageToUser += "," + " special characters" ;
       getSet("+-!@#$%^&*")
     }
-
-    var continueToPassword = confirm("you would like" + confirmationMessageToUser);
+//this resets due to user confirm if incorrect
+    var continueToPassword = confirm("you would like" + confirmationMessageToUser + "please press ~Confirm~ to continue or ~Cancel~ to restart");
 if (continueToPassword === false){
   return "please try again"
 }
@@ -119,13 +119,7 @@ function getSet(set){
    addOneToSpecs();
 }
 
-function pleaseVerify(){
-  if (confirmUppercase === true){
-    confirmationMessageToUser += "," + "uppercase" ; 
-  }
 
-  alert(confirmationMessageToUser);
- }
 // ~~~~~~~~~~~End internal functions~~~~~~~~
 
 
