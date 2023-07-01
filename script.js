@@ -63,7 +63,7 @@ function generatePassword() {
       getSet("+-!@#$%^&*")
     }
 //this resets due to user confirm if incorrect
-    var continueToPassword = confirm("you would like" + confirmationMessageToUser + "please press ~Confirm~ to continue or ~Cancel~ to restart");
+    var continueToPassword = confirm("you would like" + confirmationMessageToUser + ". if correct please press [Confirm] to continue or [Cancel] to restart");
 if (continueToPassword === false){
   return "please try again"
 }
