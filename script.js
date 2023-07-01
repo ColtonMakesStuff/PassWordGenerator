@@ -31,16 +31,17 @@ function generatePassword() {
   var confirmationMessageToUser = ""
   // sets length
   var passwordLength = prompt("how many characters in your password? (8-128)") 
- //this resets due to invalid input
+  //this resets due to invalid input
   if (passwordLength <8 || passwordLength> 128){
     return "password length of " + passwordLength + " is invalid, please try again"
   } else { confirmationMessageToUser += ", " + passwordLength + " characters" ;
 }
-
+  //collects criteria
   var confirmUppercase = confirm("do you want uppercase letters");
   var confirmLowercase = confirm("do you want lowercase letters");
   var confirmNumbers = confirm("do you want numbers");
   var confirmSpecialCharacters = confirm("do you want special characters");
+  //this resets due to invalid input
  if (!confirmUppercase && !confirmLowercase && !confirmNumbers && !confirmSpecialCharacters)
  {
   return "please select at least one character type"
@@ -67,7 +68,6 @@ function generatePassword() {
 if (continueToPassword === false){
   return "please try again"
 }
-
     //turns the string into an index
  var randomIndex = possibilities.split(""); 
 
@@ -128,7 +128,7 @@ function getSet(set){
 
 
 
-// ~~~~~~~~~start much much less efficiant code i upgraded~~~~~~~~~~~
+// ~~~~~~~~~start much much less efficiant code that i upgraded~~~~~~~~~~~
 //  if (confirmUppercase === true){
 //    var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 //   possibilities += upper;
@@ -289,9 +289,5 @@ function getSet(set){
 
 // alert("here is my alert")
 // ~~~~~~End first attempt~~~~~~~~~~~
-
-
-
-// ~~~~~~~~~~~end Internal Functions~~~~~~~~~~
 
 
