@@ -1,5 +1,5 @@
 # Password Generator Website
-### This website generates random passwords of various lengths and complexities. It is a simple tool that can help you create strong ###passwords for your online accounts.
+### This website generates random passwords of various lengths and complexities. It is a simple tool that can help you create strong passwords for your online accounts.
 ## Features
 ### Generate passwords of any length, from 8 to 128 characters.
 ### Choose the type of characters to include in your passwords, such as uppercase and lowercase letters, numbers, and special characters.
