@@ -16,25 +16,41 @@ generateBtn.addEventListener("click", writePassword);
 
 
 // ~~~~~~~~~~~Start Declared Variables~~~~~~~~~~
-let possibilities = "";
-let numberOfSpecs = 0
-let tackOnString = ""
-let mainPassword = "";
+var possibilities = "";
+var numberOfSpecs = 0
+var tackOnString = ""
+
 // ~~~~~~~~~~~End Declared Variables~~~~~~~~~~
 
 
 // ~~~~~~~~~~~Start Main Function~~~~~~~~~~
 function generatePassword() {
-  var passwordLength = prompt("how many characters in your password? (8-128)")
-if (passwordLength < 8 || passwordLength > 128){
+
+  // variable that will be the entire password without the mandatory characters
+  var mainPassword = ""; 
+
+  // sets length
+  var passwordLength = prompt("how many characters in your password? (8-128)") 
+
+  // restarts proccess if requirements arent met
+if (passwordLength < 8 || passwordLength > 128){ 
   alert("Please input between 8 and 128 characters");
   generatePassword();
+
+   // asks for parameters
 } else {
   var confirmUppercase = confirm("do you want uppercase letters");
   var confirmLowercase = confirm("do you want lowercase letters");
   var confirmNumbers = confirm("do you want numbers");
   var confirmSpecialCharacters = confirm("do you want special characters");
-    if (confirmUppercase === true){
+ 
+  // restarts proccess if requirements arent met
+  if (confirmUppercase === false && confirmLowercase === false && confirmNumbers === false && confirmSpecialCharacters === false) {
+    alert("Please select at least one character type"); 
+    generatePassword()
+  }
+  // calls function for each type
+    if (confirmUppercase === true){ 
       getSet("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     }
     if (confirmLowercase === true){
@@ -46,31 +62,115 @@ if (passwordLength < 8 || passwordLength > 128){
     if (confirmSpecialCharacters === true){
       getSet("+-!@#$%^&*")
     }
- var randomIndex = possibilities.split("");
- for (var i = numberOfSpecs; i < passwordLength; i++) {
-  var index = Math.floor(Math.random() * randomIndex.length);
+
+    //turns the string into an index
+ var randomIndex = possibilities.split(""); 
+
+ // for loop for number of characters - the number of mandatory characters
+ for (var i = numberOfSpecs; i < passwordLength; i++) { 
+
+  //this takes a random number between 0 and 1 (a fraction of 1 lets say .4567) and then
+  //multiplies it by the length of the index of possibilities (lets say 23) (which becomes 10.5041) and then
+  //"grounds it" by making it into a whole number (11 in this example)
+  var index = Math.floor(Math.random() * randomIndex.length); 
+
+  //this associates that generated number with a item in the index (lets say K)
   mainPassword += randomIndex[index];
  }
 }
+//this adds the main password section to the string of mandatory characters
 var finalPassswordIndex = mainPassword + tackOnString;
+
+// this sends it to the box
 return finalPassswordIndex;
 }
 // ~~~~~~~~~~~end Main Function~~~~~~~~~~
 
 
 // ~~~~~~~~~~~Start Internal Functions~~~~~~~~~~
+//this is a function that adds to the number of specifications/mandatory characters
 function addOneToSpecs(){
+
+  //this adds one for every time its called
   numberOfSpecs ++ 
 }
+
+
+
+// this is a function that solves for each set of parameters
+//having this defined as set allows me to replace that variable with any neccesary string in the function
 function getSet(set){
+// this adds the string in the set to the total possibilities
    possibilities += set;
+
+//this is for associating with the random selection for the mandatory
      var ifSet = ""
+
+// this turns the string into an index
    var setRandomIndex = set.split("");
+
+     //see previous for loop of random generation
    var setIndex = Math.floor(Math.random() * setRandomIndex.length);
    ifSet += setRandomIndex[setIndex]
    tackOnString += ifSet
+
+// this calls the function to add 1 for each set of parameters
    addOneToSpecs()
 }
+// ~~~~~~~~~~~End internal functions~~~~~~~~
+
+
+
+
+
+
+
+// ~~~~~~~~~start much much less efficiant code i upgraded~~~~~~~~~~~
+//  if (confirmUppercase === true){
+//    var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+//   possibilities += upper;
+//   var ifUpper = ""
+//   var upperRandomIndex = upper.split("");
+//   var upperIndex = Math.floor(Math.random() * upperRandomIndex.length);
+//   ifUpper += upperRandomIndex[upperIndex]
+//   tackOnString += ifUpper
+//   addOneToSpecs()
+//  }
+
+//  if (confirmLowercase === true){
+//    var lower = "abcdefghijklmnopqrstuvwxyz";
+//   possibilities += lower; 
+//   var ifLower = ""
+//   var lowerRandomIndex = lower.split("");
+//   var lowerIndex = Math.floor(Math.random() * lowerRandomIndex.length);
+//   ifLower += lowerRandomIndex[lowerIndex]
+//   tackOnString += ifLower
+//   addOneToSpecs()
+//  }
+
+//  if (confirmNumbers === true){
+//    var number = "1234567890";
+//   possibilities += number;
+//     var ifNumber = ""
+//   var numberRandomIndex = number.split("");
+//   var numberIndex = Math.floor(Math.random() * numberRandomIndex.length);
+//   ifNumber += numberRandomIndex[numberIndex]
+//   tackOnString += ifNumber
+//   addOneToSpecs()
+//  }
+
+//  if (confirmSpecialCharacters === true){
+//    var special = "+-!@#$%^&*";
+//   possibilities += special;
+//    var ifSpecial = ""
+//   var specialRandomIndex = special.split("");
+//   var specialIndex = Math.floor(Math.random() * specialRandomIndex.length);
+//   ifSpecial += specialRandomIndex[specialIndex]
+//   tackOnString += ifSpecial
+//   addOneToSpecs()
+//  }
+// ~~~~~~~~~end much much less efficiant code i upgraded~~~~~~~~~~~
+
 
 
 //~~~Everything below is my thought procces pre-starting to code~~~
@@ -191,46 +291,4 @@ function getSet(set){
 
 // ~~~~~~~~~~~end Internal Functions~~~~~~~~~~
 
-//  if (confirmUppercase === true){
-//    var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-//   possibilities += upper;
-//   var ifUpper = ""
-//   var upperRandomIndex = upper.split("");
-//   var upperIndex = Math.floor(Math.random() * upperRandomIndex.length);
-//   ifUpper += upperRandomIndex[upperIndex]
-//   tackOnString += ifUpper
-//   addOneToSpecs()
-//  }
 
-//  if (confirmLowercase === true){
-//    var lower = "abcdefghijklmnopqrstuvwxyz";
-//   possibilities += lower; 
-//   var ifLower = ""
-//   var lowerRandomIndex = lower.split("");
-//   var lowerIndex = Math.floor(Math.random() * lowerRandomIndex.length);
-//   ifLower += lowerRandomIndex[lowerIndex]
-//   tackOnString += ifLower
-//   addOneToSpecs()
-//  }
-
-//  if (confirmNumbers === true){
-//    var number = "1234567890";
-//   possibilities += number;
-//     var ifNumber = ""
-//   var numberRandomIndex = number.split("");
-//   var numberIndex = Math.floor(Math.random() * numberRandomIndex.length);
-//   ifNumber += numberRandomIndex[numberIndex]
-//   tackOnString += ifNumber
-//   addOneToSpecs()
-//  }
-
-//  if (confirmSpecialCharacters === true){
-//    var special = "+-!@#$%^&*";
-//   possibilities += special;
-//    var ifSpecial = ""
-//   var specialRandomIndex = special.split("");
-//   var specialIndex = Math.floor(Math.random() * specialRandomIndex.length);
-//   ifSpecial += specialRandomIndex[specialIndex]
-//   tackOnString += ifSpecial
-//   addOneToSpecs()
-//  }
