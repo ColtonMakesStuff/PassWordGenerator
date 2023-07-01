@@ -5,7 +5,6 @@ var generateBtn = document.querySelector("#generate");
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
 
 }
@@ -19,7 +18,7 @@ generateBtn.addEventListener("click", writePassword);
 var possibilities = "";
 var numberOfSpecs = 0
 var tackOnString = ""
-
+var confirmationMessageToUser = ""
 // ~~~~~~~~~~~End Declared Variables~~~~~~~~~~
 
 
@@ -28,40 +27,46 @@ function generatePassword() {
 
   // variable that will be the entire password without the mandatory characters
   var mainPassword = ""; 
-
+  var passwordLength = 0
+  var confirmationMessageToUser = ""
   // sets length
   var passwordLength = prompt("how many characters in your password? (8-128)") 
+ 
+  if (passwordLength <8 || passwordLength> 128){
+    return "password length of " + passwordLength + " is invalid, please try again"
+  } else { confirmationMessageToUser += "," + passwordLength + " characters" ;
+}
 
-  // restarts proccess if requirements arent met
-if (passwordLength < 8 || passwordLength > 128){ 
-  alert("Please input between 8 and 128 characters");
-  generatePassword();
-
-   // asks for parameters
-} else {
   var confirmUppercase = confirm("do you want uppercase letters");
   var confirmLowercase = confirm("do you want lowercase letters");
   var confirmNumbers = confirm("do you want numbers");
   var confirmSpecialCharacters = confirm("do you want special characters");
- 
-  // restarts proccess if requirements arent met
-  if (confirmUppercase === false && confirmLowercase === false && confirmNumbers === false && confirmSpecialCharacters === false) {
-    alert("Please select at least one character type"); 
-    generatePassword()
-  }
+ if (!confirmUppercase && !confirmLowercase && !confirmNumbers && !confirmSpecialCharacters)
+ {
+  return "please select at least one character type"
+ }
   // calls function for each type
-    if (confirmUppercase === true){ 
+    if (confirmUppercase === true){   
+      confirmationMessageToUser += "," + " uppercase" ;
       getSet("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     }
     if (confirmLowercase === true){
+      confirmationMessageToUser += "," + " lowercase" ;
       getSet("abcdefghijklmnopqrstuvwxyz")
     }
     if (confirmNumbers === true){
+      confirmationMessageToUser += "," + " numbers" ;
       getSet("1234567890")
     }
     if (confirmSpecialCharacters === true){
+      confirmationMessageToUser += "," + " special characters" ;
       getSet("+-!@#$%^&*")
     }
+
+    var continueToPassword = confirm("you would like" + confirmationMessageToUser);
+if (continueToPassword === false){
+  return "please try again"
+}
 
     //turns the string into an index
  var randomIndex = possibilities.split(""); 
@@ -77,7 +82,7 @@ if (passwordLength < 8 || passwordLength > 128){
   //this associates that generated number with a item in the index (lets say K)
   mainPassword += randomIndex[index];
  }
-}
+
 //this adds the main password section to the string of mandatory characters
 var finalPassswordIndex = mainPassword + tackOnString;
 
@@ -95,28 +100,32 @@ function addOneToSpecs(){
   numberOfSpecs ++ 
 }
 
-
-
-// this is a function that solves for each set of parameters
-//having this defined as set allows me to replace that variable with any neccesary string in the function
 function getSet(set){
 // this adds the string in the set to the total possibilities
    possibilities += set;
 
 //this is for associating with the random selection for the mandatory
-     var ifSet = ""
+     var ifSet = "";
 
 // this turns the string into an index
    var setRandomIndex = set.split("");
 
      //see previous for loop of random generation
    var setIndex = Math.floor(Math.random() * setRandomIndex.length);
-   ifSet += setRandomIndex[setIndex]
-   tackOnString += ifSet
+   ifSet += setRandomIndex[setIndex];
+   tackOnString += ifSet;
 
 // this calls the function to add 1 for each set of parameters
-   addOneToSpecs()
+   addOneToSpecs();
 }
+
+function pleaseVerify(){
+  if (confirmUppercase === true){
+    confirmationMessageToUser += "," + "uppercase" ; 
+  }
+
+  alert(confirmationMessageToUser);
+ }
 // ~~~~~~~~~~~End internal functions~~~~~~~~
 
 
